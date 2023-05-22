@@ -86,7 +86,7 @@
 <body>
 <div class="container">
     <img src="./images/scroll1.png" alt="Scroll" style="width:100%;">
-    <div class="top-left">
+    <div class="top-left top-section">
         <h1>Blood Contract</h1>
         <a href="https://www.twitch.tv/m1n1m00se">Created by m1n1m00se</a>
 
@@ -104,53 +104,53 @@
         <div id="character-output"></div>
     </div>
     <div class="bottom-right">
-        <a onclick="generateCharacter()"><img width="100%" height="100%" src="./images/blood-splatter2.png"></a>
+        <a class="generate-button" onclick="generateCharacter()"><img width="100%" height="100%" src="./images/blood-splatter2.png"></a>
     </div>   
 </div>
 
 <script>
     function generateCharacter() {
-      const race = getRandomElement(Object.keys(classMap));
-      const classList = classMap[race];
-      const characterClass = getRandomElement(classList);
-      const achievements = parseInt(document.getElementById('num-achievements').value, 10);
-      const includeClassAchievement = document.getElementById('class-achievement').checked;
-  
-      let characterOutput = `<h2>The Contract is Sealed</h2>`;
-      characterOutput += `<p><strong>Race:</strong> ${race}</p>`;
-      characterOutput += `<p><strong>Class:</strong> ${characterClass}</p>`;
-  
-      if (includeClassAchievement) {
-        const classAchievementList = classAchieves[characterClass];
-        const classAchievement = getRandomElement(classAchievementList);
-        characterOutput += `<p><strong>Class Achievement:</strong> ${classAchievement}</p>`;
-      }
-  
-      characterOutput += `<p><strong>Achievements:</strong>`;
-      for (let i = 0; i < achievements; i++) {
-        const achievement = getRandomElement(achievementList);
-        characterOutput += `<br>- ${achievement}`;
-      }
-      characterOutput += `</p>`;
-  
-      document.getElementById('character-output').innerHTML = characterOutput;
-  
-      // Hide inputs and labels
-      const inputGroups = document.getElementsByClassName('input-group');
-      for (let i = 0; i < inputGroups.length; i++) {
-        inputGroups[i].classList.add('hidden');
-      }
-  
-      // Hide generate button
-      document.getElementsByClassName('generate-button')[0].classList.add('hidden');
+        const race = getRandomElement(Object.keys(classMap));
+        const classList = classMap[race];
+        const characterClass = getRandomElement(classList);
+        const achievements = parseInt(document.getElementById('num-achievements').value, 10);
+        const includeClassAchievement = document.getElementById('class-achievement').checked;
+
+        let characterOutput = `<h2>The Contract is Sealed</h2>`;
+        characterOutput += `<p><strong>Race:</strong> ${race}</p>`;
+        characterOutput += `<p><strong>Class:</strong> ${characterClass}</p>`;
+
+        if (includeClassAchievement) {
+            const classAchievementList = classAchieves[characterClass];
+            const classAchievement = getRandomElement(classAchievementList);
+            characterOutput += `<p><strong>Class Achievement:</strong> ${classAchievement}</p>`;
+        }
+
+        characterOutput += `<p><strong>Achievements:</strong>`;
+        const uniqueAchievementList = [...achievementList]; // Create a copy of the achievement list
+
+        for (let i = 0; i < achievements; i++) {
+            const achievement = getRandomElement(uniqueAchievementList);
+            uniqueAchievementList.splice(uniqueAchievementList.indexOf(achievement), 1); // Remove selected achievement
+            characterOutput += `<br>- ${achievement}`;
+        }
+        characterOutput += `</p>`;
+
+        document.getElementById('character-output').innerHTML = characterOutput;
+
+        // Hide inputs and labels
+        const inputGroups = document.getElementsByClassName('input-group');
+        for (let i = 0; i < inputGroups.length; i++) {
+            inputGroups[i].classList.add('hidden');
+        }
+
+        // Hide generate button
+        document.getElementsByClassName('generate-button')[0].classList.add('hidden');
+        document.getElementsByClassName('top-section')[0].classList.add('hidden');
     }
-  
+
     function getRandomElement(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-  
-    function getRandomElements(arr, num) {
-      return arr.sort(() => Math.random() - 0.5).slice(0, num);
+        return arr[Math.floor(Math.random() * arr.length)];
     }
   
     const classMap = {
