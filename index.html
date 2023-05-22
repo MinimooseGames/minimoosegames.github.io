@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Character Generator</title>
+  <title>Hardcore WoW - Blood Contract</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -21,10 +21,49 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       display: inline-block;
     }
+
+    .input-group {
+      margin-top: 20px;
+    }
+
+    .input-label {
+      display: inline-block;
+      width: 180px;
+      text-align: right;
+      padding-right: 10px;
+    }
+
+    .input-field {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #cccccc;
+      font-size: 14px;
+      width: 120px;
+    }
+
+    .generate-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: #ffffff;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <h1>Generated Character</h1>
+  <div class="input-group">
+    <label class="input-label" for="num-achievements">Number of Achievements:</label>
+    <input class="input-field" type="number" id="num-achievements" value="3" min="1" max="20">
+  </div>
+  <div class="input-group">
+    <label class="input-label" for="class-achievement">Class Achievement:</label>
+    <input class="input-field" type="checkbox" id="class-achievement" checked>
+  </div>
+  <button class="generate-button" onclick="generateCharacter()">Sign Contract</button>
   <div id="character-output"></div>
 
   <script>
@@ -107,31 +146,32 @@
       'Nudist',
     ];
 
-    
     function generateCharacter() {
+      const numAchievements = parseInt(document.getElementById('num-achievements').value);
+      const generateClassAchievement = document.getElementById('class-achievement').checked;
+
       const race = getRandomElement(Object.keys(classMap));
       const char = getRandomElement(classMap[race]);
-      const characterOutput = document.getElementById('character-output');
-      characterOutput.innerHTML = `${getRandomElement(bodyType)} ${race} ${getRandomElement(classSpecs[char])} ${char} with ${getRandomElement(classProfs[char])}`;
+      const bodyTypeResult = getRandomElement(bodyType);
+      const classSpecResult = getRandomElement(classSpecs[char]);
+      const classProfResult = getRandomElement(classProfs[char]);
 
-      const extreme = true;
-      const hcNums = getRandomElement(Array.from(Array(achieves.length).keys()));
-      const classc = true;
+      let output = `
+        <p>${bodyTypeResult} ${race} ${classSpecResult} ${char} with ${classProfResult}</p>
+      `;
 
-      if (extreme) {
-        if (classc) {
-          const classAchieve = getRandomElement(classAchieves[char]);
-          characterOutput.innerHTML += `<br><br>Class Achievement: ${classAchieve}<br><br>`;
-        }
-
-        const acs = getRandomElements(achieves, hcNums);
-        acs.forEach((a, i) => {
-          characterOutput.innerHTML += `Hardcore Achievement ${i + 1}: ${a}<br>`;
-        });
+      if (generateClassAchievement) {
+        const classAchieveResult = getRandomElement(classAchieves[char]);
+        output += `<p>Class Achievement: ${classAchieveResult}</p>`;
       }
-    }
 
-    generateCharacter();
+      const hcNums = getRandomElements(achieves, numAchievements);
+      hcNums.forEach((achieve, index) => {
+        output += `<p>Hardcore Achievement ${index + 1}: ${achieve}</p>`;
+      });
+
+      document.getElementById('character-output').innerHTML = output;
+    }
   </script>
 </body>
 </html>
