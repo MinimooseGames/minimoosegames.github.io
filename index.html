@@ -3,79 +3,156 @@
 <head>
   <title>Random WoW Character</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: MedievalSharp;
       text-align: center;
-      background-color: #f1f1f1;
+      background-color: #000000;
     }
 
     h1 {
-      color: #333333;
+      font-family: MedievalSharp;
+      color: #000000;
     }
 
     #character-output {
       margin-top: 20px;
       padding: 20px;
-      background-color: #ffffff;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       display: inline-block;
     }
 
     .input-group {
+      display: inline-block;
       margin-top: 20px;
+      width: 500px;
+      vertical-align: top;
     }
 
     .input-label {
       display: inline-block;
-      width: 180px;
+      width: 250px;
       text-align: right;
       padding-right: 10px;
     }
 
     .input-field {
+      display: inline-block;
       padding: 8px;
       border-radius: 4px;
-      border: 1px solid #cccccc;
+      border: 1px solid #000000;
+      background-color:rgb(31, 31, 31);
+      color: white;
       font-size: 14px;
-      width: 120px;
+      width: 35px;
     }
 
-    .generate-button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4caf50;
-      color: #ffffff;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
+    .container {
+        position: relative;
+        margin: auto;
+        text-align: center;
+        color: rgb(0, 0, 0);
+        width: 500px;
+        height: 800px;
+    }
+
+    .top-left {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .centered {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .bottom-right {
+        position: absolute;
+        top: 75%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h1>Hardcore WoW - Blood Contract</h1>
-  <h4>Created by m1n1m00se on Twitch</h4>
-  <div class="input-group">
-    <label class="input-label" for="num-achievements">Number of Achievements:</label>
-    <input class="input-field" type="number" id="num-achievements" value="3" min="1" max="20">
-  </div>
-  <div class="input-group">
-    <label class="input-label" for="class-achievement">Class Achievement:</label>
-    <input class="input-field" type="checkbox" id="class-achievement" checked>
-  </div>
-  <button class="generate-button" onclick="generateCharacter()">Sign Contract</button>
-  <div id="character-output"></div>
+<div class="container">
+    <img src="./images/scroll1.png" alt="Scroll" style="width:100%;">
+    <div class="top-left">
+        <h1>Blood Contract</h1>
+        <a href="https://www.twitch.tv/m1n1m00se">Created by m1n1m00se</a>
+
+    </div>
+    <div class="centered">
+        <div class="input-group">
+            <label class="input-label" for="num-achievements">Number of Achievements:</label>
+            <input class="input-field" type="number" id="num-achievements" value="3" min="1" max="20">
+        </div>
+    
+        <div class="input-group">
+            <label class="input-label" for="class-achievement">Class Achievement:</label>
+            <input class="input-field" type="checkbox" id="class-achievement" checked>
+        </div>
+        <div id="character-output"></div>
+    </div>
+    <div class="bottom-right">
+        <a onclick="generateCharacter()"><img width="100%" height="100%" src="./images/blood-splatter2.png"></a>
+    </div>   
+</div>
+
+<script>
+    function generateCharacter() {
+      const race = getRandomElement(Object.keys(classMap));
+      const classList = classMap[race];
+      const characterClass = getRandomElement(classList);
+      const achievements = parseInt(document.getElementById('num-achievements').value, 10);
+      const includeClassAchievement = document.getElementById('class-achievement').checked;
   
-  <script>
+      let characterOutput = `<h2>The Contract is Sealed</h2>`;
+      characterOutput += `<p><strong>Race:</strong> ${race}</p>`;
+      characterOutput += `<p><strong>Class:</strong> ${characterClass}</p>`;
+  
+      if (includeClassAchievement) {
+        const classAchievementList = classAchieves[characterClass];
+        const classAchievement = getRandomElement(classAchievementList);
+        characterOutput += `<p><strong>Class Achievement:</strong> ${classAchievement}</p>`;
+      }
+  
+      characterOutput += `<p><strong>Achievements:</strong>`;
+      for (let i = 0; i < achievements; i++) {
+        const achievement = getRandomElement(achievementList);
+        characterOutput += `<br>- ${achievement}`;
+      }
+      characterOutput += `</p>`;
+  
+      document.getElementById('character-output').innerHTML = characterOutput;
+  
+      // Hide inputs and labels
+      const inputGroups = document.getElementsByClassName('input-group');
+      for (let i = 0; i < inputGroups.length; i++) {
+        inputGroups[i].classList.add('hidden');
+      }
+  
+      // Hide generate button
+      document.getElementsByClassName('generate-button')[0].classList.add('hidden');
+    }
+  
     function getRandomElement(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
-
+  
     function getRandomElements(arr, num) {
       return arr.sort(() => Math.random() - 0.5).slice(0, num);
     }
-
+  
     const classMap = {
       Dwarf: ['Hunter', 'Paladin', 'Priest', 'Rogue', 'Warrior'],
       Gnome: ['Mage', 'Rogue', 'Warlock', 'Warrior'],
@@ -86,46 +163,34 @@
       Troll: ['Hunter', 'Mage', 'Priest', 'Rogue', 'Shaman', 'Warrior'],
       Undead: ['Mage', 'Priest', 'Rogue', 'Warlock', 'Warrior'],
     };
-
+  
     const bodyType = ['Body Type 1', 'Body Type 2'];
-
+  
     const classProfs = {
       Druid: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering'],
       Hunter: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing'],
       Mage: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering'],
-      Paladin: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing'],
-      Priest: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering'],
-      Rogue: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing'],
-      Shaman: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing'],
-      Warlock: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering'],
-      Warrior: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing'],
+      Paladin: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Mining and Mining'],
+      Priest: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Tailoring and Gathering'],
+      Rogue: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Gathering and Gathering'],
+      Shaman: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Mining'],
+      Warlock: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Gathering and Gathering'],
+      Warrior: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Mining'],
     };
-
-    const classSpecs = {
-      Warrior: ['Fury', 'Arms', 'Protection'],
-      Mage: ['Fire', 'Frost', 'Arcane'],
-      Rogue: ['Assassination', 'Combat', 'Subtlety'],
-      Druid: ['Balance', 'Feral Combat', 'Restoration'],
-      Priest: ['Discipline', 'Holy', 'Shadow'],
-      Warlock: ['Affliction', 'Demonology', 'Destruction'],
-      Paladin: ['Holy', 'Protection', 'Retribution'],
-      Hunter: ['Beast Mastery', 'Marksmanship', 'Survival'],
-      Shaman: ['Elemental', 'Enhancement', 'Restoration'],
-    };
-
+  
     const classAchieves = {
-      Hunter: ['Mortal Pet', 'Close Combat', 'Lone Wolf'],
-      Shaman: ['Totemic Misery', 'Thunderstruck', 'Shocked'],
-      Warrior: ['Berserker', 'Tied Hands', 'Sword And Board'],
-      Priest: ['Pacifist', 'Void Servant', 'True Believer'],
-      Druid: ['Druid Of The Claw', 'Unrestored', 'Naturalist'],
-      Warlock: ['Shadow Embrace', 'Shadow And Flame', 'Felfire', 'Imp Master'],
-      Mage: ['Elemental Balance', 'Pyromancer', 'Cyromancer', 'Arcanist'],
-      Rogue: ['I Can See You', 'Shivved', 'Not So Deadly'],
-      Paladin: ['No Way Out', 'Hammertime', 'Not The Blessed Run'],
+      Druid: ['Druid of the Claw', 'Path of Cenarius'],
+      Hunter: ['Predator', 'Pathfinder'],
+      Mage: ['Arcanist', 'Master of Elements'],
+      Paladin: ['Holy Lightbringer', 'The Ashbringer'],
+      Priest: ['Disciple of Light', 'Prophet'],
+      Rogue: ['Shadowblade', 'Master Assassin'],
+      Shaman: ['Spiritwalker', 'Earthen Fury'],
+      Warlock: ['Master of Demons', 'Doomguard Commander'],
+      Warrior: ['Berserker', 'Warchief'],
     };
-
-    const achieves = [
+  
+    const achievementList = [
       'Insane In The Membrane',
       'No Hit',
       'Scavenger',
@@ -146,33 +211,6 @@
       'Not So Talented',
       'Nudist',
     ];
-
-    function generateCharacter() {
-      const numAchievements = parseInt(document.getElementById('num-achievements').value);
-      const generateClassAchievement = document.getElementById('class-achievement').checked;
-
-      const race = getRandomElement(Object.keys(classMap));
-      const char = getRandomElement(classMap[race]);
-      const bodyTypeResult = getRandomElement(bodyType);
-      const classSpecResult = getRandomElement(classSpecs[char]);
-      const classProfResult = getRandomElement(classProfs[char]);
-
-      let output = `
-        <p>${bodyTypeResult} ${race} ${classSpecResult} ${char} with ${classProfResult}</p>
-      `;
-
-      if (generateClassAchievement) {
-        const classAchieveResult = getRandomElement(classAchieves[char]);
-        output += `<p>Class Achievement: ${classAchieveResult}</p>`;
-      }
-
-      const hcNums = getRandomElements(achieves, numAchievements);
-      hcNums.forEach((achieve, index) => {
-        output += `<p>Hardcore Achievement ${index + 1}: ${achieve}</p>`;
-      });
-
-      document.getElementById('character-output').innerHTML = output;
-    }
   </script>
 </body>
 </html>
