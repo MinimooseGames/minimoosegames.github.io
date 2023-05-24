@@ -117,6 +117,9 @@
         const prof = getRandomElement(professions);
         const body = getRandomElement(bodyType);
 
+        const specializations = classSpecs[characterClass];
+        const spec = getRandomElement(specializations);
+
         const achievements = parseInt(document.getElementById('num-achievements').value, 10);
         const includeClassAchievement = document.getElementById('class-achievement').checked;
 
@@ -124,6 +127,7 @@
         characterOutput += `<p><strong>Body Type:</strong> ${body}</p>`;
         characterOutput += `<p><strong>Race:</strong> ${race}</p>`;
         characterOutput += `<p><strong>Class:</strong> ${characterClass}</p>`;
+        characterOutput += `<p><strong>Specialization:</strong> ${spec}</p>`;
         characterOutput += `<p><strong>Professions:</strong> ${prof}</p>`;
 
         if (includeClassAchievement) {
@@ -171,17 +175,29 @@
     };
   
     const bodyType = ['Male', 'Female'];
-  
+
+    const classSpecs = {
+        Warrior: ['Fury', 'Arms', 'Protection'],
+        Mage: ['Fire', 'Frost', 'Arcane'],
+        Rogue: ['Assassination', 'Combat', 'Subtlety'],
+        Druid: ['Balance', 'Feral Combat', 'Restoration'],
+        Priest: ['Discipline', 'Holy', 'Shadow'],
+        Warlock: ['Affliction', 'Demonology', 'Destruction'],
+        Paladin: ['Holy', 'Protection', 'Retribution'],
+        Hunter: ['Beast Mastery', 'Marksmanship', 'Survival'],
+        Shaman: ['Elemental', 'Enhancement', 'Restoration'],
+        };
+
     const classProfs = {
       Druid: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering'],
       Hunter: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing'],
       Mage: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering'],
-      Paladin: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Mining and Mining'],
+      Paladin: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing'],
       Priest: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Tailoring and Gathering'],
       Rogue: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Gathering and Gathering'],
-      Shaman: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Mining'],
+      Shaman: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering'],
       Warlock: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Gathering and Gathering'],
-      Warrior: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Mining'],
+      Warrior: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering'],
     };
   
     const classAchieves = {
