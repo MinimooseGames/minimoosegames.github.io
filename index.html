@@ -17,9 +17,8 @@
     }
 
     #character-output {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 8px;
+      margin-top: -175px;
+      width: 500px;
       display: inline-block;
     }
 
@@ -87,6 +86,7 @@
 <div class="container">
     <img src="./images/scroll1.png" alt="Scroll" style="width:100%;">
     <div class="top-left top-section">
+        <p>Hardcore WoW Character Generator</p>
         <h1>Blood Contract</h1>
         <a href="https://www.twitch.tv/m1n1m00se">Created by m1n1m00se</a>
 
@@ -113,12 +113,18 @@
         const race = getRandomElement(Object.keys(classMap));
         const classList = classMap[race];
         const characterClass = getRandomElement(classList);
+        const professions = classProfs[characterClass];
+        const prof = getRandomElement(professions);
+        const body = getRandomElement(bodyType);
+
         const achievements = parseInt(document.getElementById('num-achievements').value, 10);
         const includeClassAchievement = document.getElementById('class-achievement').checked;
 
         let characterOutput = `<h2>The Contract is Sealed</h2>`;
+        characterOutput += `<p><strong>Body Type:</strong> ${body}</p>`;
         characterOutput += `<p><strong>Race:</strong> ${race}</p>`;
         characterOutput += `<p><strong>Class:</strong> ${characterClass}</p>`;
+        characterOutput += `<p><strong>Professions:</strong> ${prof}</p>`;
 
         if (includeClassAchievement) {
             const classAchievementList = classAchieves[characterClass];
@@ -164,7 +170,7 @@
       Undead: ['Mage', 'Priest', 'Rogue', 'Warlock', 'Warrior'],
     };
   
-    const bodyType = ['Body Type 1', 'Body Type 2'];
+    const bodyType = ['Male', 'Female'];
   
     const classProfs = {
       Druid: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering'],
