@@ -17,7 +17,7 @@
     }
 
     #character-output {
-      margin-top: -175px;
+      padding-top: 60px;
       width: 500px;
       display: inline-block;
     }
@@ -72,11 +72,18 @@
 
     .bottom-right {
         position: absolute;
-        top: 75%;
+        top: 55%;
         left: 70%;
         transform: translate(-50%, -50%);
     }
 
+    .bottom-left {
+        position: absolute;
+        top: 75%;
+        right: 70%;
+        transform: translate(30%, -50%);
+    }
+  
     .hidden {
       display: none;
     }
@@ -106,10 +113,13 @@
     <div class="bottom-right">
         <a class="generate-button" onclick="generateCharacter()"><img width="100%" height="100%" src="./images/blood-splatter2.png"></a>
     </div>   
+    <div class="bottom-left">
+      <a class="generate-button" onclick="generateCharacter(true)"><img width="100%" height="100%" src="./images/blood-splatter3.png"></a>
+    </div>
 </div>
 
 <script>
-    function generateCharacter() {
+    function generateCharacter(chaos = false) {
         const race = getRandomElement(Object.keys(classMap));
         const classList = classMap[race];
         const characterClass = getRandomElement(classList);
@@ -119,9 +129,15 @@
 
         const specializations = classSpecs[characterClass];
         const spec = getRandomElement(specializations);
-
-        const achievements = parseInt(document.getElementById('num-achievements').value, 10);
-        const includeClassAchievement = document.getElementById('class-achievement').checked;
+        if (chaos) {
+          console.log('chaos clicked');
+          var achievements = randomIntFromInterval(0, achievementList.length);
+          var includeClassAchievement = getRandomElement([true, false]);
+        } else {
+          console.log('not chaos clicked');
+          var achievements = parseInt(document.getElementById('num-achievements').value, 10);
+          var includeClassAchievement = document.getElementById('class-achievement').checked;
+        }
 
         let characterOutput = `<h2>The Contract is Sealed</h2>`;
         characterOutput += `<p><strong>Body Type:</strong> ${body}</p>`;
@@ -156,7 +172,12 @@
 
         // Hide generate button
         document.getElementsByClassName('generate-button')[0].classList.add('hidden');
+        document.getElementsByClassName('generate-button')[1].classList.add('hidden');
         document.getElementsByClassName('top-section')[0].classList.add('hidden');
+    }
+
+    function randomIntFromInterval(min, max) { // min and max included 
+      return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
     function getRandomElement(arr) {
