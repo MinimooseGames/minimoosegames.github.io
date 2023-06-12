@@ -95,9 +95,10 @@
     <img src="./images/scroll1.png" alt="Scroll" style="width:100%;">
     <div class="top-left top-section">
         <p>Hardcore WoW Character Generator</p>
-        <h1>Era Blood Contract</h1>
+        <h1>Wrath Blood Contract</h1>
         <a href="https://www.twitch.tv/m1n1m00se">Created by m1n1m00se</a><br>
-        <a href="./index_wrath.html">Wrath Contract</a>
+        <a href="./index.html">Era Contract</a>
+        
 
     </div>
     <div class="centered">
@@ -195,6 +196,8 @@
       Tauren: ['Druid', 'Hunter', 'Shaman', 'Warrior'],
       Troll: ['Hunter', 'Mage', 'Priest', 'Rogue', 'Shaman', 'Warrior'],
       Undead: ['Mage', 'Priest', 'Rogue', 'Warlock', 'Warrior'],
+      'Blood Elf': ['Death Knight','Hunter','Mage','Paladin','Priest','Rogue','Warlock'],
+      'Draenei': ['Death Knight','Hunter','Mage','Paladin','Priest','Shaman','Warrior'],
     };
   
     const bodyType = ['Male', 'Female'];
@@ -209,18 +212,20 @@
         Paladin: ['Holy', 'Protection', 'Retribution'],
         Hunter: ['Beast Mastery', 'Marksmanship', 'Survival'],
         Shaman: ['Elemental', 'Enhancement', 'Restoration'],
+        'Death Knight': ['Blood','Frost','Unholy'],
         };
 
         const classProfs = {
-  Druid: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering'],
-  Hunter: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing'],
-  Mage: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering'],
-  Paladin: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing'],
-  Priest: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering'],
-  Rogue: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing'],
-  Shaman: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing'],
-  Warlock: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering'],
-  Warrior: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing'],
+  Druid: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Hunter: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Mage: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Paladin: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Priest: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Rogue: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Shaman: ['Herbalism and Alchemy', 'Mining and Engineering', 'Skinning and Leatherworking', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Warlock: ['Herbalism and Alchemy', 'Mining and Engineering', 'Tailoring and Gathering', 'Gathering and Gathering', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  Warrior: ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
+  'Death Knight': ['Herbalism and Alchemy', 'Mining and Engineering', 'Gathering and Gathering', 'Mining and Blacksmithing', 'Jewelcrafting and Mining', 'Inscription and Herbalism'],
 };
   
     const classAchieves = {
@@ -233,6 +238,7 @@
   Mage: ['Pyromancer', 'Cyromancer', 'Arcanist'],
   Rogue: ['I Can See You', 'Shivved', 'Not So Deadly'],
   Paladin: ['No Way Out', 'Hammertime', 'Not The Blessed Run'],
+  'Death Knight':['Not Applicable']
 };
   
     const achievementList = [
